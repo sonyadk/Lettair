@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lettair</string>
+    <string name="hi">Hello, World!</string>
+    <string name="registration">Registration</string>
+    <string name="login">Login</string>
+    <string name="signIn">Sign in</string>
+    <string name="password">Password</string>
+    <string name="mail">E-mail</string>
+</resources>
