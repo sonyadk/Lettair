@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "29867428678",
+    "firebase_url": "https://lettair.firebaseio.com",
+    "project_id": "lettair",
+    "storage_bucket": "lettair.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29867428678:android:0b6462cb073de6b5",
+        "android_client_info": {
+          "package_name": "com.example.lettair"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29867428678-p30sjlvbm6asbqj98ibsedacoptdvk6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWlw8a_8ibke3S18uSsdUT6TPWCf85bB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29867428678-p30sjlvbm6asbqj98ibsedacoptdvk6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
