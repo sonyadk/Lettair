@@ -26,13 +26,18 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener {
 
     private static final String TAG = "Account delete";
+    private EditText chattxt;
     private FirebaseAuth mAuth;
-    FirebaseUser firebaseUser;
+    private DatabaseReference myRef;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +45,21 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        EditText chattxt= (EditText) findViewById(R.id.chat_edittext);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        chattxt = findViewById(R.id.chat_edittext);
         navigationView.setNavigationItemSelectedListener(this);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         imm.hideSoftInputFromWindow(chattxt.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
-
         mAuth = FirebaseAuth.getInstance();
+        findViewById(R.id.btn_send).setOnClickListener(this);
+
     }
 
     @Override
@@ -97,7 +103,7 @@ public class MainActivity extends BaseActivity
         if (user != null) {
 
         } else {
-            Intent intent = new Intent(this , EmailPasswordActivity.class);
+            Intent intent = new Intent(this, EmailPasswordActivity.class);
             startActivity(intent);
             finish();
         }
@@ -125,7 +131,7 @@ public class MainActivity extends BaseActivity
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User account deleted.");
-                            Intent intent = new Intent(MainActivity.this , EmailPasswordActivity.class);
+                            Intent intent = new Intent(MainActivity.this, EmailPasswordActivity.class);
                             startActivity(intent);
                             finish();
                         }
@@ -142,7 +148,7 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.btn_sign_out) {
             signOut();
-        }else if(id == R.id.menu_delete){
+        } else if (id == R.id.menu_delete) {
             deleteAccount();
         }
 
@@ -150,5 +156,22 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int i = view.getId();
+        if (i == R.id.btn_send) {
+            if (chattxt.getText().toString().equals("")) {
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "ок", Toast.LENGTH_SHORT);
+                toast.show();
+                FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = mDatabase.getReference();
+                myRef.child("messages").push().setValue(chattxt.getText().toString());
+                chattxt.setText("");
+            }
+        }
     }
 }
